@@ -1,0 +1,41 @@
+﻿@model List<Category>
+@section title {
+  <h1> Welcome to the main category page !</h1>
+}
+
+@if(Model != null && Model.Count > 0)
+{
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var category in Model)
+      {
+        <tr>
+          <td>
+            <a class="btn btn-link" asp-controller="categories" asp-action="edit" asp-route-id="@category.categoryId"> Edit</a>&nbsp;
+            <a class="btn btn-link btn-danger" asp-controller="categories" asp-action="delete" asp-route-id="@category.categoryId" onclick="return confirmDelete()"> Delete</a>
+          </td>
+          <td>@category.categoryName</td>
+          <td>@category.categoryDescription</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <div>
+    <a class="btn btn-primary" asp-controller="categories" asp-action="add">Add</a>
+  </div>
+}
+
+@section Script{
+  <script>
+    function confirmDelete() {
+      return confirm("Are you sure you want to delete this Category?")
+    }
+  </script>
+}
